@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pareto ESG Intelligence · SDLC Documentation</title>
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Mermaid for diagrams (optional, but we'll render as styled code blocks for reliability) -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fc;
+      color: #1a1f36;
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    .document-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 30px 60px -20px rgba(0, 20, 40, 0.25);
+      padding: 48px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Header branding */
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 20px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #0b2b4e 0%, #1b4b7a 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: -1px;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: -0.3px;
+      color: #0b2b4e;
+    }
+
+    .logo-text span {
+      color: #1e6f9f;
+      font-weight: 500;
+    }
+
+    .doc-meta {
+      text-align: right;
+      font-size: 13px;
+      color: #5e6f8b;
+      background: #f0f4fa;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-weight: 500;
+    }
+
+    /* Title area */
+    .title-block {
+      margin: 32px 0 28px;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      line-height: 1.2;
+      color: #0b2b4e;
+      margin-bottom: 12px;
+    }
+
+    h1 i {
+      color: #1e6f9f;
+      margin-right: 12px;
+    }
+
+    .subhead {
+      font-size: 17px;
+      color: #4a5c7c;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .subhead .badge {
+      background: #e7f0fd;
+      color: #1e6f9f;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 30px;
+      letter-spacing: 0.2px;
+    }
+
+    /* Section styling */
+    .section {
+      margin-top: 48px;
+      scroll-margin-top: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      border-left: 6px solid #1e6f9f;
+      padding-left: 18px;
+    }
+
+    .section-header i {
+      font-size: 26px;
+      color: #1e6f9f;
+      width: 36px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #0b2b4e;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a2b4c;
+      margin: 28px 0 16px;
+      letter-spacing: -0.2px;
+    }
+
+    h4 {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1e3a5f;
+      margin: 20px 0 12px;
+    }
+
+    /* Cards & grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: #f9fcff;
+      border: 1px solid #dfe9f3;
+      border-radius: 18px;
+      padding: 22px 20px;
+      box-shadow: 0 4px 12px rgba(0, 30, 60, 0.04);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px -8px rgba(0, 50, 100, 0.12);
+      border-color: #b8d1e9;
+    }
+
+    .stat-card .label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+      color: #5e7a9f;
+      margin-bottom: 8px;
+    }
+
+    .stat-card .value {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0b2b4e;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .stat-card .sub {
+      font-size: 14px;
+      color: #4c6280;
+      font-weight: 500;
+    }
+
+    .stat-card.highlight {
+      background: linear-gradient(135deg, #f0f8ff, #e6f0fe);
+      border-color: #aac8e8;
+    }
+
+    /* Tables */
+    .table-responsive {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: 18px;
+      border: 1px solid #e1eaf2;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      min-width: 900px;
+    }
+
+    th {
+      background: #eef4fb;
+      color: #0b2b4e;
+      font-weight: 700;
+      padding: 16px 14px;
+      text-align: left;
+      border-bottom: 2px solid #cbdae9;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 14px;
+      border-bottom: 1px solid #e6eef8;
+      vertical-align: top;
+      color: #1f314b;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f9fdff;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .status-resolved {
+      background: #dff0d8;
+      color: #1f6d2b;
+    }
+
+    .status-reverified {
+      background: #d9ecfe;
+      color: #0b548b;
+    }
+
+    .status-missing {
+      background: #ffe1e1;
+      color: #a12b2b;
+    }
+
+    .status-partial {
+      background: #fff0d9;
+      color: #a4650b;
+    }
+
+    /* Diagram blocks (Mermaid-like / code) */
+    .diagram-block {
+      background: #0d1e31;
+      color: #e2ecf7;
+      border-radius: 18px;
+      padding: 24px 26px;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      overflow-x: auto;
+      margin: 22px 0;
+      border: 1px solid #234b6b;
+      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.3);
+      white-space: pre;
+      letter-spacing: 0.2px;
+    }
+
+    .diagram-block .comment {
+      color: #7fa5c7;
+    }
+
+    .diagram-label {
+      display: inline-block;
+      background: #1e3e5c;
+      color: #b9d6f0;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 30px;
+      margin-bottom: 12px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    /* Alert / note */
+    .note {
+      background: #e8f1fd;
+      border-left: 6px solid #1e6f9f;
+      padding: 18px 24px;
+      border-radius: 14px;
+      margin: 26px 0;
+      font-size: 15px;
+      color: #153a5c;
+    }
+
+    .note i {
+      color: #1e6f9f;
+      margin-right: 10px;
+    }
+
+    /* Progress bars */
+    .progress-container {
+      margin: 12px 0;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1b3b5c;
+      margin-bottom: 5px;
+    }
+
+    .progress-bar-bg {
+      height: 12px;
+      background: #e1eaf2;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #1e6f9f, #2b8bc9);
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .fill-62 {
+      width: 62%;
+    }
+
+    .fill-100 {
+      width: 100%;
+    }
+
+    /* Icons in text */
+    .icon-text {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .icon-text i {
+      color: #1e6f9f;
+      width: 18px;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid #d9e3ef;
+      font-size: 13px;
+      color: #6a7f9b;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Toggle / interactive */
+    .collapsible {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .collapsible:hover {
+      color: #1e6f9f;
+    }
+
+    .collapsible i {
+      transition: transform 0.2s;
+      margin-left: 8px;
+      font-size: 14px;
+      color: #1e6f9f;
+    }
+
+    .collapsible.active i {
+      transform: rotate(90deg);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .document-container {
+        padding: 28px 20px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .doc-meta {
+        text-align: left;
+      }
+    }
+
+    /* Diagram scroll */
+    .diagram-scroll {
+      max-height: 400px;
+      overflow-y: auto;
+      border-radius: 18px;
+    }
+
+    /* Highlight boxes */
+    .query-card {
+      background: #ffffff;
+      border: 1px solid #e0ebf5;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0, 30, 60, 0.03);
+    }
+
+    .query-card .q-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .query-card .q-id {
+      font-weight: 800;
+      font-size: 16px;
+      color: #1e6f9f;
+    }
+
+    .query-card .q-desc {
+      font-size: 14px;
+      color: #2a3e5c;
+      margin-bottom: 6px;
+    }
+
+    .query-card .q-meta {
+      font-size: 13px;
+      color: #5c7493;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="document-container">
+    <!-- Brand bar -->
+    <div class="brand-bar">
+      <div class="logo-area">
+        <div class="logo-icon">P</div>
+        <div class="logo-text">Pareto <span>ESG Intelligence</span></div>
+      </div>
+      <div class="doc-meta">
+        <i class="fas fa-file-alt" style="margin-right: 6px;"></i> DOC-PARETO-ESG-SDLC-2026.09 · Enterprise Proprietary
+      </div>
+    </div>
+
+    <!-- Title -->
+    <div class="title-block">
+      <h1><i class="fas fa-leaf"></i>Pareto ESG Intelligence Platform</h1>
+      <div class="subhead">
+        <span>Comprehensive SDLC Architecture, Business Logic &amp; Technical Resolution Documentation</span>
+        <span class="badge">v3.2 · Production Release</span>
+        <span class="badge">100% Audit Coverage</span>
+      </div>
+    </div>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <div class="section" id="executive-summary">
+      <div class="section-header">
+        <i class="fas fa-chart-pie"></i>
+        <h2>1. Executive Summary</h2>
+      </div>
+
+      <p style="font-size: 16px; color: #1f314b; margin-bottom: 22px;">
+        The <strong>Pareto ESG Intelligence Platform</strong> is an enterprise IoT analytics, utility governance, and automated sustainability accounting ecosystem engineered for South Africa's premier retail shopping centre portfolio — eight marquee assets totalling <strong>838,000 m² GLA</strong>.
+      </p>
+
+      <div class="grid-4" style="margin-bottom: 28px;">
+        <div class="stat-card highlight">
+          <div class="label">Financial Savings</div>
+          <div class="value">R28.45M</div>
+          <div class="sub">per year (portfolio annualized)</div>
+        </div>
+        <div class="stat-card highlight">
+          <div class="label">Section 12L Tax</div>
+          <div class="value">R2.85M</div>
+          <div class="sub">@ 95c/kWh certified (SANS 50010)</div>
+        </div>
+        <div class="stat-card highlight">
+          <div class="label">Grid Energy Conserved</div>
+          <div class="value">18.92M</div>
+          <div class="sub">kWh / year avoided</div>
+        </div>
+        <div class="stat-card highlight">
+          <div class="label">Water Recovered</div>
+          <div class="value">142.5k</div>
+          <div class="sub">kL / year saved</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom: 24px;">
+        <div class="stat-card">
+          <div class="label">Carbon Liability Abated</div>
+          <div class="value">17,974 tCO₂e</div>
+          <div class="sub">Scope 2 reduction / year</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Solar PV Capacity Managed</div>
+          <div class="value">15.49 MWp</div>
+          <div class="sub">Rooftop PV + BESS orchestration</div>
+        </div>
+      </div>
+
+      <h3>Before vs. After Transformation</h3>
+      <div class="grid-2">
+        <div class="stat-card" style="background: #fafbfe;">
+          <div class="label"><i class="fas fa-clock" style="margin-right: 8px;"></i>Legacy Prototype (Q1 2026)</div>
+          <div class="progress-container">
+            <div class="progress-label"><span>Coverage</span><span>62%</span></div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill fill-62"></div></div>
+          </div>
+          <div class="sub" style="margin-top: 10px;">Standard electricity charts, static carbon coefficients, no fuel/water IoT, unverified tax.</div>
+        </div>
+        <div class="stat-card" style="background: #f3f9ff; border-color: #aac8e8;">
+          <div class="label"><i class="fas fa-check-circle" style="margin-right: 8px; color: #1e6f9f;"></i>Production Release (Q3 2026)</div>
+          <div class="progress-container">
+            <div class="progress-label"><span>Coverage</span><span>100%</span></div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill fill-100"></div></div>
+          </div>
+          <div class="sub" style="margin-top: 10px;">11 deep operational modules, 6 re-verified core engines, live fieldbus, 95c/kWh 12L certified.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM STATEMENT -->
+    <div class="section" id="problem-statement">
+      <div class="section-header">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h2>2. Problem Statement &amp; Original Gap Analysis</h2>
+      </div>
+      <p style="margin-bottom: 20px; font-size: 15px; color: #2a3e5c;">Eleven mission-critical gaps identified during technical steering committee evaluations with Pareto leadership:</p>
+
+      <div class="grid-2">
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 01</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Diesel Generator Fuel Billing vs. Ocubus IoT Reconciliation</strong></div>
+          <div class="q-meta">Stage 4–6 load-shedding bulk diesel procurement; no traceability of delivery shortfalls or skimming.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 02</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Municipal Water Billing Latency &amp; Invisible Catastrophic Leaks</strong></div>
+          <div class="q-meta">60–90 day billing lag; undetected leaks could cost R1.2M before detection.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 03</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Field Sub-Meter Watchdog &amp; High-Frequency Health Monitoring</strong></div>
+          <div class="q-meta">&gt;1,800 sub-meters; frozen meters, RS485 disconnects, pulse emitter failures.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 04</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Solar PV Heat Map, Inverter Clipping &amp; BESS Arbitrage Control</strong></div>
+          <div class="q-meta">15.49 MWp; unmonitored soiling, clipping, suboptimal dispatch.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 05</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Indoor Air Quality (IAQ) Compliance &amp; Mall Tenant Comfort</strong></div>
+          <div class="q-meta">Food courts, cinemas; CO₂, PM2.5, VOC build-ups; Green Star SA / ASHRAE 62.1 violations.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 06</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Bertha House Mixed-Use Retro-Commissioning Empirical Validation</strong></div>
+          <div class="q-meta">Lack of empirical proof for IoT sub-metering and chiller staging.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 07</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Facility Manager Manual BMS Setpoint Override Creep</strong></div>
+          <div class="q-meta">“Hand” mode forgotten → 24/7 baseload inflation; R180k/month per centre.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 08</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Automated Board &amp; ESG Reporting</strong></div>
+          <div class="q-meta">3 weeks of manual spreadsheet gathering; carbon tax, 12L, Green Leases.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 09</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>POPIA Data Sovereignty, Tenant PII &amp; Operational SOPs</strong></div>
+          <div class="q-meta">Risk of R10M fines; inconsistent operational practices.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 10</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>BMS &amp; Fieldbus Gateway Architecture Transparency</strong></div>
+          <div class="q-meta">No visibility into edge gateway health, BACnet IP/Modbus topologies.</div>
+        </div>
+        <div class="query-card">
+          <div class="q-header"><span class="q-id">GAP 11</span><span class="badge-status status-missing">Critical</span></div>
+          <div class="q-desc"><strong>Portfolio-Wide Metering Infrastructure Readiness Matrix</strong></div>
+          <div class="q-meta">No unified asset-by-asset audit for AMR rollout.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLUTION ARCHITECTURE -->
+    <div class="section" id="architecture">
+      <div class="section-header">
+        <i class="fas fa-sitemap"></i>
+        <h2>3. High-Level Solution Architecture</h2>
+      </div>
+      <p style="margin-bottom: 16px;">Distributed IoT ingestion, edge processing, and multi-tier presentation architecture:</p>
+
+      <div class="diagram-label">Mermaid Architecture Diagram</div>
+      <div class="diagram-block">
+graph TB
+    subgraph "Edge Fieldbus & IoT Ingestion Layer"
+        BAC[BACnet IP / MSTP Chiller Plant] -->|BACnet/IP 47808| GW1[Edge IoT Gateway 01]
+        MOD[Modbus TCP / RS485 Sub-meters] -->|Modbus Polling 1-min| GW2[Edge IoT Gateway 02]
+        OCU[Ocubus Flow-Meters & Dipsticks] -->|MQTT / TLS 8883| GW3[Ocubus Cloud Broker]
+        LOR[LoRaWAN Acoustic Water Loggers] -->|868 MHz LoRa| GW4[LoRaWAN Gateway]
+        IAQ_S[IAQ Sensirion NDIR CO2 & Laser PM] -->|Modbus RTU| GW2
+    end
+
+    subgraph "Communication & Secure Transport"
+        GW1 -->|Secure HTTPS / REST| API[Node.js Express Enterprise API]
+        GW2 -->|Secure HTTPS / REST| API
+        GW3 -->|Webhook / API Bridge| API
+        GW4 -->|MQTT / WebSocket| API
+    end
+
+    subgraph "Pareto ESG Core Backend Services"
+        API --> AUTH[POPIA & RBAC Security Engine]
+        API --> FUEL_ENG[Fuel & Ocubus Reconciliation Engine]
+        API --> WATER_ENG[Water Mass Balance & Leak Engine]
+        API --> SOLAR_BESS[Solar Inverter & BESS Optimizer]
+        API --> IAQ_ENG[IAQ & BMS Override Watchdog]
+        API --> NORM_ENG[IPMVP Option C Normalization Engine]
+        API --> REP_ENG[Automated Monthly Board Report Generator]
+        API --> GEMINI_AI[Gemini 2.5 Flash Enterprise AI Agent]
+    end
+
+    subgraph "Persistent Storage & Caching Layer"
+        API --> TS_DB[(Time-Series Telemetry Store)]
+        API --> REL_DB[(PostgreSQL / Relational Data Model)]
+        API --> CACHE[(In-Memory Redis Cache & Rules Engine)]
+    end
+
+    subgraph "Presentation & User Experience Layer"
+        API --> WEB_CLIENT[React 18 + Vite Production Web Application]
+        WEB_CLIENT --> CFO_V[CFO & Board Capital View]
+        WEB_CLIENT --> PORT_V[Portfolio Executive 80/20 View]
+        WEB_CLIENT --> FAC_V[Facilities & Plant Engineering View]
+        WEB_CLIENT --> ESG_V[Sustainability & SANS 1544 ESG View]
+        WEB_CLIENT --> HUB_V[Executive Navigation Home Hub]
+    end
+
+    subgraph "Automated Alerting & External Escalations"
+        WATER_ENG -->|Webhook API| WA_BOT[WhatsApp Escalation Dispatcher]
+        FUEL_ENG -->|SMTP / SMS| SEC_ALERT[Group Security & Audit Alert]
+        NORM_ENG -->|PDF Export| SANEDI[SANEDI SANS 50010 Audit Pack]
+    end
+      </div>
+
+      <h3>Tech Stack Summary</h3>
+      <div class="grid-3">
+        <div class="stat-card"><div class="label">Frontend</div><div class="sub">React 18, Vite, TypeScript, Tailwind, Recharts, D3</div></div>
+        <div class="stat-card"><div class="label">Backend</div><div class="sub">Node.js, Express, TypeScript, REST, esbuild</div></div>
+        <div class="stat-card"><div class="label">Security</div><div class="sub">POPIA SHA-256 masking, RBAC, TLS 1.3</div></div>
+        <div class="stat-card"><div class="label">AI Analytics</div><div class="sub">Google Gemini 2.5 Flash via @google/genai</div></div>
+        <div class="stat-card"><div class="label">Data</div><div class="sub">Time-series DB, PostgreSQL, Redis</div></div>
+        <div class="stat-card"><div class="label">Deployment</div><div class="sub">Google Cloud Run, zero-downtime containers</div></div>
+      </div>
+    </div>
+
+    <!-- QUERY RESOLUTION MATRIX -->
+    <div class="section" id="query-matrix">
+      <div class="section-header">
+        <i class="fas fa-table"></i>
+        <h2>4. Query-by-Query Resolution Matrix</h2>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th><th>Original Query / Requirement</th><th>Requester</th><th>Status Before</th><th>Solution Implemented</th><th>Business Outcome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Q01</strong></td>
+              <td>Generator Fuel Reconciliation (Ocubus vs. bulk invoices)</td>
+              <td>Susan Manyane (COO)</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>FuelReconciliationTab.tsx &amp; /api/fuel/reconciliation/:id</td>
+              <td>Flags variance; detects theft/shortfall</td>
+            </tr>
+            <tr>
+              <td><strong>Q02</strong></td>
+              <td>Water Mass Balance &amp; Real-time Leak Watchdog</td>
+              <td>Shanti Govender (CEO)</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>WaterMassBalanceTab.tsx &amp; /api/water/balance/:id</td>
+              <td>Eliminates 60-day lag; prevents R350k/mo failures</td>
+            </tr>
+            <tr>
+              <td><strong>Q03</strong></td>
+              <td>Field Sub-Meter Watchdog &amp; Health Monitoring</td>
+              <td>Facilities Engineers</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>MeterWatchdog.tsx &amp; /api/meters/watchdog</td>
+              <td>99.8% meter uptime; zero lost recoveries</td>
+            </tr>
+            <tr>
+              <td><strong>Q04</strong></td>
+              <td>Solar PV Heat Map, Inverter Clipping &amp; BESS Arbitrage</td>
+              <td>Melinde Viviers (CFO)</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>SolarBessTab.tsx &amp; /api/solar/bess/:id</td>
+              <td>Saves up to R420k/mo in peak demand kVA</td>
+            </tr>
+            <tr>
+              <td><strong>Q05</strong></td>
+              <td>Indoor Air Quality (IAQ) &amp; Tenant Comfort Monitoring</td>
+              <td>ESG / Property Ops</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>IaqAndBmsTab.tsx &amp; /api/iaq/bms/:id</td>
+              <td>Green Star SA &amp; ASHRAE 62.1 compliance</td>
+            </tr>
+            <tr>
+              <td><strong>Q06</strong></td>
+              <td>Bertha House Mixed-Use Retro-Commissioning Proof</td>
+              <td>Shanti Govender (CEO)</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>BerthaHouseCaseStudyTab.tsx &amp; /api/case-studies/bertha-house</td>
+              <td>Boardroom proof; 44% chiller kWh reduction</td>
+            </tr>
+            <tr>
+              <td><strong>Q07</strong></td>
+              <td>Manual BMS Setpoint Override Audit Log</td>
+              <td>Technical Directors</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>IaqAndBmsTab.tsx (Audit Section)</td>
+              <td>Halts R180k/mo per centre energy creep</td>
+            </tr>
+            <tr>
+              <td><strong>Q08</strong></td>
+              <td>Automated Monthly ESG Board Pack</td>
+              <td>Melinde Viviers (CFO)</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>MonthlyReportingTab.tsx &amp; /api/reports/monthly</td>
+              <td>3 weeks → 10 seconds, 100% auditable</td>
+            </tr>
+            <tr>
+              <td><strong>Q09</strong></td>
+              <td>Data Governance, POPIA Charter &amp; Training Academy</td>
+              <td>Legal / HR</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>DataGovernanceTab.tsx &amp; TrainingSopTab.tsx</td>
+              <td>POPIA immunity; institutional knowledge</td>
+            </tr>
+            <tr>
+              <td><strong>Q10</strong></td>
+              <td>Edge Fieldbus &amp; Gateway Architecture Status</td>
+              <td>IT &amp; Engineering</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>GatewayArchitectureTab.tsx &amp; /api/gateways/topology</td>
+              <td>Full transparency; rapid fault isolation</td>
+            </tr>
+            <tr>
+              <td><strong>Q11</strong></td>
+              <td>Metering Infrastructure Readiness Matrix</td>
+              <td>COO / Property Ops</td>
+              <td><span class="badge-status status-missing">Missing</span></td>
+              <td>ReadinessMatrixTab.tsx &amp; /api/readiness/matrix</td>
+              <td>Data-driven roadmap to 100% smart sub-metering</td>
+            </tr>
+            <tr>
+              <td><strong>V01</strong></td>
+              <td>80/20 Pareto Energy Breakdown (Subsystems)</td>
+              <td>Portfolio Managers</td>
+              <td><span class="badge-status status-reverified">Re-verified</span></td>
+              <td>ParetoChart.tsx &amp; PortfolioManagerDashboard.tsx</td>
+              <td>Focus on vital 20% consuming 80%</td>
+            </tr>
+            <tr>
+              <td><strong>V02</strong></td>
+              <td>Tenant Sub-metering &amp; Cost Allocation</td>
+              <td>Leasing &amp; Finance</td>
+              <td><span class="badge-status status-reverified">Re-verified</span></td>
+              <td>TenantCostTable.tsx &amp; CfoDashboard.tsx</td>
+              <td>100% recovery without disputes</td>
+            </tr>
+            <tr>
+              <td><strong>V03</strong></td>
+              <td>Green Lease Compliance (Tier 2)</td>
+              <td>Sustainability Leads</td>
+              <td><span class="badge-status status-reverified">Re-verified</span></td>
+              <td>GreenLeaseTable.tsx &amp; SustainabilityDashboard.tsx</td>
+              <td>Unlocks green financing; ESG ratings</td>
+            </tr>
+            <tr>
+              <td><strong>V04</strong></td>
+              <td>Scope 1, 2, and 3 GHG Inventory</td>
+              <td>ESG Leadership</td>
+              <td><span class="badge-status status-reverified">Re-verified</span></td>
+              <td>SustainabilityDashboard.tsx &amp; Core Services</td>
+              <td>Audit-ready carbon accounts; GRESB</td>
+            </tr>
+            <tr>
+              <td><strong>V05</strong></td>
+              <td>SANS 1544 EPC Certification Compliance</td>
+              <td>Engineering &amp; Legal</td>
+              <td><span class="badge-status status-reverified">Re-verified</span></td>
+              <td>SustainabilityDashboard.tsx &amp; EpcTable.tsx</td>
+              <td>Mandatory EPC compliance</td>
+            </tr>
+            <tr>
+              <td><strong>V06</strong></td>
+              <td>Section 12L Tax Allowance (95c/kWh)</td>
+              <td>CFO / Tax Specialists</td>
+              <td><span class="badge-status status-reverified">Re-verified</span></td>
+              <td>CfoDashboard.tsx &amp; BerthaHouseCaseStudyTab.tsx</td>
+              <td>SARS-compliant tax reductions</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BUSINESS LOGIC -->
+    <div class="section" id="business-logic">
+      <div class="section-header">
+        <i class="fas fa-cogs"></i>
+        <h2>5. Business Logic Documentation</h2>
+      </div>
+
+      <h3>5.1 Fuel Reconciliation &amp; Shrinkage Engine</h3>
+      <p><strong>Mathematical Balance:</strong> Variance = Invoiced − (Δ Dip + Metered Burn)</p>
+      <div class="grid-3" style="margin: 16px 0;">
+        <div class="stat-card"><div class="label">≤ 2.5%</div><div class="sub">RECONCILED (Normal tolerance)</div></div>
+        <div class="stat-card"><div class="label">2.5% – 5.0%</div><div class="sub">SHRINKAGE_WARNING (Amber)</div></div>
+        <div class="stat-card"><div class="label">&gt; 5.0%</div><div class="sub">CRITICAL_THEFT_ALERT (Red) → COO &amp; Security</div></div>
+      </div>
+
+      <h3>5.2 Water Mass Balance &amp; Night-Flow Watchdog</h3>
+      <p><strong>Mass Balance:</strong> Unaccounted = Bulk IN − (Tenants + Restrooms + Cooling Towers + Landscape + Borehole/Rainwater)</p>
+      <p><strong>Night-Flow Rules (01:00–04:00):</strong></p>
+      <ul style="margin-left: 24px; color: #1f314b;">
+        <li>Baseline allowance: 3.0 kL/hr</li>
+        <li>&gt; 3.0 kL/hr → ELEVATED_NOCTURNAL_FLOW</li>
+        <li>&gt; 4.5 kL/hr sustained 45 min → CRITICAL_LEAK_CONFIRMED + WhatsApp dispatch</li>
+      </ul>
+
+      <h3>5.3 Solar PV String Telemetry &amp; BESS Dispatch Logic</h3>
+      <p><strong>String Health Grading:</strong> GREEN (Optimal) · YELLOW (Soiled / Diode) · RED (Blown fuse / Offline)</p>
+      <p><strong>BESS Modes:</strong> TOU Arbitrage (default) · Peak Demand Shaving (&gt;88% NMD) · Solar Absorption (reverse-power prevention) · Emergency Backup (SoC ≥ 85% at Stage 4+)</p>
+
+      <h3>5.4 IAQ &amp; BMS Setpoint Override Audit</h3>
+      <p><strong>IAQ thresholds:</strong> CO₂ &gt;1000 ppm (Warning), &gt;1200 ppm (damper boost); PM2.5 &gt;25 (HEPA); TVOC &gt;500 ppb (alert).</p>
+      <p><strong>Override drift:</strong> manual_override &gt; 4.0 hrs → wasted cost = delta kW × hours × R2.45 → 1-click revert via BACnet priority relinquish.</p>
+
+      <h3>5.5 IPMVP Option C Statistical Normalization</h3>
+      <p>Multivariate regression with HDD/CDD, footfall, load-shedding suppression. R² = 0.942, CV(RMSE) = 4.8%. Section 12L deduction = verified kWh × R0.95.</p>
+
+      <h3>5.6 Data Governance &amp; POPIA Privacy</h3>
+      <p>Tenant PII salted &amp; SHA-256 encrypted. Sovereign hosting, zero offshore transmission.</p>
+    </div>
+
+    <!-- DATA LOGIC -->
+    <div class="section" id="data-logic">
+      <div class="section-header">
+        <i class="fas fa-database"></i>
+        <h2>6. Data Logic Documentation</h2>
+      </div>
+
+      <div class="diagram-label">Data Pipeline Flow</div>
+      <div class="diagram-block">
+flowchart LR
+    subgraph "Ingest"
+        A1[BACnet IP] --> B[Data Cleanser]
+        A2[Modbus TCP] --> B
+        A3[Ocubus MQTT] --> B
+        A4[LoRaWAN] --> B
+    end
+    subgraph "Process & Validate"
+        B --> C{Range & Spike Check}
+        C -->|Valid| D[Time-Series Ingestion]
+        C -->|Out of Range| E[Dead-band Filter & Flag]
+        D --> F[15-min Rollup Aggregator]
+    end
+    subgraph "Storage Partition"
+        F --> G[(Raw Interval Telemetry - 90 Days)]
+        F --> H[(Hourly & Daily Aggregates - 10 Years)]
+        F --> I[(Relational Metadata & POPIA Hashed Tables)]
+    end
+    subgraph "Consumption"
+        G --> J[Real-time Stream / WebSockets]
+        H --> K[Pareto Analytics & AI Models]
+        I --> L[REST API Endpoints]
+    end
+      </div>
+
+      <h3>6.1 Telemetry Validation Rules</h3>
+      <div class="grid-3">
+        <div class="stat-card"><div class="label">Spike Filtering</div><div class="sub">&gt;150% design capacity → anomaly queue</div></div>
+        <div class="stat-card"><div class="label">Missing Packet Imputation</div><div class="sub">Linear interpolation ≤ 5 min; flagged if &gt; 5 min</div></div>
+        <div class="stat-card"><div class="label">Retention</div><div class="sub">Raw 90 days · 15-min 3 years · Monthly 10 years</div></div>
+      </div>
+    </div>
+
+    <!-- ERD -->
+    <div class="section" id="erd">
+      <div class="section-header">
+        <i class="fas fa-project-diagram"></i>
+        <h2>7. Entity Relationship Diagram (ERD)</h2>
+      </div>
+      <div class="diagram-label">Mermaid ERD</div>
+      <div class="diagram-block">
+erDiagram
+    SITE ||--o{ GATEWAY : houses
+    SITE ||--o{ METER : contains
+    SITE ||--o{ SOLAR_ARRAY : operates
+    SITE ||--o{ BESS_UNIT : operates
+    SITE ||--o{ FUEL_TANK : maintains
+    SITE ||--o{ REPORT : generates
+    
+    GATEWAY ||--o{ METER : connects
+    METER ||--o{ TELEMETRY_RECORD : emits
+    METER }o--|| TENANT : monitors
+    
+    FUEL_TANK ||--o{ FUEL_INVOICE : receives
+    FUEL_TANK ||--o{ FUEL_RECONCILIATION : audits
+    
+    SITE ||--o{ WATER_BALANCE : calculates
+    WATER_BALANCE ||--o{ WATER_ALERT : triggers
+    
+    SOLAR_ARRAY ||--o{ SOLAR_STRING : comprises
+    
+    SITE ||--o{ IAQ_SENSOR : monitors
+    SITE ||--o{ BMS_OVERRIDE_LOG : records
+    
+    SITE {
+        string id PK
+        string name
+        string province
+        float gross_lettable_area
+        string epc_rating
+        float baseline_kwh_per_sqm
+    }
+    
+    GATEWAY {
+        string id PK
+        string site_id FK
+        string name
+        string protocol
+        string ip_address
+        string status
+        float packet_error_rate
+    }
+    
+    METER {
+        string id PK
+        string site_id FK
+        string gateway_id FK
+        string tag
+        string meter_type
+        string bus_address
+        boolean is_amr_automated
+        datetime last_seen
+    }
+    
+    TELEMETRY_RECORD {
+        string id PK
+        string meter_id FK
+        datetime timestamp
+        float kwh_reading
+        float peak_demand_kva
+        float power_factor
+        float flow_rate_kl_hr
+    }
+    
+    TENANT {
+        string id PK
+        string site_id FK
+        string hashed_tenant_code
+        string lease_tier
+        float leased_area_sqm
+        boolean green_lease_signed
+    }
+    
+    FUEL_TANK {
+        string id PK
+        string site_id FK
+        float capacity_liters
+        float current_dip_liters
+        string fuel_type
+    }
+    
+    FUEL_RECONCILIATION {
+        string id PK
+        string fuel_tank_id FK
+        string period_month
+        float invoiced_liters
+        float metered_burn_liters
+        float variance_pct
+        string status
+    }
+    
+    WATER_BALANCE {
+        string id PK
+        string site_id FK
+        date record_date
+        float bulk_in_kl
+        float submetered_kl
+        float night_flow_kl_hr
+        float unaccounted_pct
+        string leak_status
+    }
+    
+    SOLAR_STRING {
+        string id PK
+        string array_id FK
+        string string_code
+        float dc_voltage
+        float dc_current
+        float performance_ratio
+        string health_color
+    }
+    
+    BESS_UNIT {
+        string id PK
+        string site_id FK
+        float capacity_kwh
+        float current_soc_pct
+        string active_mode
+        float cell_temp_c
+    }
+    
+    BMS_OVERRIDE_LOG {
+        string id PK
+        string site_id FK
+        string equipment_tag
+        datetime override_start
+        datetime override_end
+        float wasted_kwh
+        boolean is_reverted
+    }
+      </div>
+    </div>
+
+    <!-- FLOW DIAGRAMS -->
+    <div class="section" id="flow-diagrams">
+      <div class="section-header">
+        <i class="fas fa-water"></i>
+        <h2>8. Flow Diagrams</h2>
+      </div>
+
+      <h3>8.1 Fuel Reconciliation &amp; Shrinkage Detection</h3>
+      <div class="diagram-block">
+flowchart TD
+    A[Sasol / Bulk Fuel Delivery] -->|Delivery Note Uploaded| B[Log Invoiced Liters]
+    C[Ocubus IoT Flow Meter] -->|Pulse Stream| D[Calculate Realized Generator Burn]
+    E[Ultrasonic Level Sensor] -->|1-min Tank Dip| F[Calculate Delta Tank Storage]
+    
+    B --> G[Reconciliation Engine]
+    D --> G
+    F --> G
+    
+    G --> H{Variance > 2.5%?}
+    H -->|No| I[Mark Reconciled: Green Audit Certificate]
+    H -->|Yes| J{Variance > 5.0%?}
+    J -->|No| K[Log Amber Flag: Volumetric Temp Expansion / Shrinkage]
+    J -->|Yes| L[Trigger Red Theft Alert: Dispatch to COO & Security]
+    L --> M[Generate SARS Rebate Dispute Form]
+      </div>
+
+      <h3>8.2 Night-Flow Water Leak Detection &amp; WhatsApp Escalation</h3>
+      <div class="diagram-block">
+flowchart TD
+    A[IoT Pulse Water Meter Network] -->|15-min Stream| B[Time Engine: Is Window 01:00 - 04:00 AM?]
+    B -->|No| C[Normal Daytime Mass Balance Ledger]
+    B -->|Yes| D[Measure Average Night Flow Rate]
+    
+    D --> E{Flow > 3.0 kL/hr?}
+    E -->|No| F[Status: Normal Sound Pipeline]
+    E -->|Yes| G{Flow > 4.5 kL/hr for > 45 mins?}
+    G -->|No| H[Flag Elevated Nocturnal Baseline]
+    G -->|Yes| I[TRIGGER CRITICAL WATER LEAK WATCHDOG]
+    
+    I --> J[Calculate Hourly Rand Loss: Rate * R62.50/kL]
+    J --> K[Dispatch Automated WhatsApp to Centre Duty Engineer]
+    K --> L[Create In-App Action Ticket with Sub-branch Isolation Map]
+    L --> M[Acknowledge Ticket & Close Valve]
+      </div>
+
+      <h3>8.3 Solar PV &amp; BESS Mode Switching</h3>
+      <div class="diagram-block">
+stateDiagram-v2
+    [*] --> TOU_Arbitrage: Default Operation
+    
+    TOU_Arbitrage --> Peak_Shaving: Facility Demand > 88% NMD Threshold
+    Peak_Shaving --> TOU_Arbitrage: Facility Demand < 75% NMD
+    
+    TOU_Arbitrage --> Solar_Absorption: Generation > Facility Load (Reverse Power Risk)
+    Solar_Absorption --> TOU_Arbitrage: Facility Load > Generation
+    
+    TOU_Arbitrage --> Backup_Standby: Eskom Stage 4+ Alert Received
+    Backup_Standby --> TOU_Arbitrage: Grid Restored to Stage 1 / Normal
+      </div>
+
+      <h3>8.4 Automated Monthly Board ESG Report Generation</h3>
+      <div class="diagram-block">
+sequenceDiagram
+    autonumber
+    actor Executive as Melinde Viviers (CFO)
+    participant UI as React Presentation Layer
+    participant API as Express Reporting Controller
+    participant Engine as ESG Aggregator & Normalizer
+    participant AI as Gemini 2.5 Strategic Advisor
+    participant DB as Telemetry & Financial DB
+
+    Executive->>UI: Click "Generate Monthly Executive Pack"
+    UI->>API: POST /api/reports/monthly/generate
+    API->>DB: Query Consolidated Utility Consumption
+    DB-->>API: 30-Day Billing Data Returned
+    API->>Engine: Calculate Scope 1, 2, 3 GHG Emissions
+    API->>Engine: Run IPMVP Normalization (Weather/Footfall Adjusted)
+    API->>Engine: Compute Section 12L Deductions @ 95c/kWh
+    Engine-->>API: Complete Mathematical Synthesis
+    API->>AI: Request C-Suite Qualitative Strategic Synthesis
+    AI-->>API: Executive Risk Summary & Energy Priorities
+    API-->>UI: Deliver Audit-Ready Board Document
+    UI-->>Executive: Display Interactive Dashboard & Instant PDF Export
+      </div>
+    </div>
+
+    <!-- USE CASE DIAGRAMS -->
+    <div class="section" id="use-case">
+      <div class="section-header">
+        <i class="fas fa-users"></i>
+        <h2>9. Use Case Diagrams</h2>
+      </div>
+      <div class="diagram-block">
+graph TD
+    actorFM((Facilities Manager))
+    actorCFO((Chief Financial Officer))
+    actorESG((Sustainability Lead))
+    actorAUD((External Auditor))
+
+    subgraph "Pareto ESG System Boundary"
+        UC1[Audit Diesel Deliveries vs Ocubus]
+        UC2[Respond to Night-Flow Water Alerts]
+        UC3[Revert Manual BMS Setpoint Overrides]
+        UC4[Review 80/20 Subsystem Pareto]
+        UC5[Authorize BESS Operating Modes]
+        UC6[Certify Section 12L Tax Rebates @ 95c]
+        UC7[Compile SANS 1544 EPC Filings]
+        UC8[Audit Carbon Tax Act Liabilities]
+        UC9[Inspect POPIA Encryption Ledger]
+        UC10[Generate Monthly Board ESG Pack]
+    end
+
+    actorFM --> UC1
+    actorFM --> UC2
+    actorFM --> UC3
+    actorFM --> UC4
+
+    actorCFO --> UC5
+    actorCFO --> UC6
+    actorCFO --> UC10
+
+    actorESG --> UC7
+    actorESG --> UC8
+    actorESG --> UC10
+
+    actorAUD --> UC6
+    actorAUD --> UC7
+    actorAUD --> UC9
+      </div>
+    </div>
+
+    <!-- SEQUENCE DIAGRAMS -->
+    <div class="section" id="sequence-diagrams">
+      <div class="section-header">
+        <i class="fas fa-exchange-alt"></i>
+        <h2>10. Sequence Diagrams — Critical Interactions</h2>
+      </div>
+
+      <h3>10.1 BMS Setpoint Override Detection &amp; Automated Reversion</h3>
+      <div class="diagram-block">
+sequenceDiagram
+    autonumber
+    participant Sensor as Chiller Plant Controller
+    participant GW as BACnet IP Gateway
+    participant Watchdog as BMS Override Watchdog
+    participant UI as Facilities Dashboard
+    participant Tech as Centre Duty Engineer
+
+    Sensor->>GW: Emit Point Status (Priority Array Level 8 = Active)
+    GW->>Watchdog: Ingest Point Telemetry
+    Watchdog->>Watchdog: Check Duration: Override Active > 4.0 Hours?
+    Watchdog->>Watchdog: Calculate Cost Penalty: delta kW * Hours * R2.45
+    Watchdog->>UI: Broadcast Override Alert (Amber Flag)
+    Tech->>UI: Click "Revert to Energy-Optimized Schedule"
+    UI->>Watchdog: POST /api/iaq/bms/revert
+    Watchdog->>GW: Send BACnet Relinquish Command (Priority Level 8 -> Null)
+    GW->>Sensor: Execute Relinquish (Restores Schedule Priority 16)
+    Sensor-->>GW: Confirmation: Chiller Setpoint Restored to 8.5C
+    GW-->>UI: Reversion Confirmed: Log Saved to Audit Trail
+      </div>
+
+      <h3>10.2 Fuel Shrinkage Escalation &amp; Supplier Dispute Pack Generation</h3>
+      <div class="diagram-block">
+sequenceDiagram
+    autonumber
+    actor Clerk as Receiving Fuel Clerk
+    participant Flow as Ocubus Pulse Flow Meter
+    participant Tank as Ultrasonic Tank Sensor
+    participant Engine as Fuel Reconciliation Engine
+    actor CFO as Melinde Viviers (CFO)
+
+    Clerk->>Engine: Post Delivery Note: 45,000 Liters Sasol Diesel
+    Flow->>Engine: Post Generator Burn Cycle Liters (38,400 L)
+    Tank->>Engine: Post Ultrasonic Dip Differential (+2,200 L)
+    Engine->>Engine: Compute Variance: 45,000 - (38,400 + 2,200) = 4,400 L (9.78%)
+    Engine->>Engine: Variance > 5.0% -> TRIGGER THEFT / DELIVERY SHORTFALL ALERT
+    Engine->>CFO: High-Priority Executive Alert (SMS + Email)
+    Engine->>Clerk: Freeze Invoice Approval in Accounts Payable
+    Engine->>Engine: Generate Form 12L / SARS Rebate Audit Dispute Certificate
+      </div>
+    </div>
+
+    <!-- SITE IMPLEMENTATION -->
+    <div class="section" id="site-implementation">
+      <div class="section-header">
+        <i class="fas fa-building"></i>
+        <h2>11. Site Implementation Reference — Bertha House &amp; Portfolio</h2>
+      </div>
+
+      <h3>11.1 Bertha House Mixed-Use Blueprint (Empirical Proof Layer)</h3>
+      <div class="grid-2" style="margin-bottom: 20px;">
+        <div class="stat-card">
+          <div class="label">Baseline Challenge</div>
+          <div class="sub">Mixed-use community centre, offices, auditorium, restaurant; unmonitored HVAC, simultaneous heating/cooling conflicts, no sub-metering.</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Hardware Deployed</div>
+          <div class="sub">Non-invasive clamp-on CTs, pulse counters on municipal water meters, Modbus temperature sensors, edge LoRaWAN/BACnet gateway.</div>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-bottom: 24px;">
+        <div class="stat-card highlight"><div class="label">44%</div><div class="sub">Chiller electrical reduction</div></div>
+        <div class="stat-card highlight"><div class="label">&lt; 7.2 months</div><div class="sub">Payback period</div></div>
+        <div class="stat-card highlight"><div class="label">95c/kWh</div><div class="sub">Section 12L verified</div></div>
+      </div>
+
+      <h3>11.2 Pareto Portfolio Rollout &amp; Readiness Audit</h3>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr><th>Centre Name</th><th>GLA (m²)</th><th>Monthly kWh</th><th>Solar PV (MWp)</th><th>AMR Automation %</th><th>Readiness Tier</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Menlyn Park (Pretoria)</td><td>177,000</td><td>2,450,000</td><td>4.80 MWp</td><td>94%</td><td>Tier 1 (Advanced)</td></tr>
+            <tr><td>Cresta Shopping Centre (Joburg)</td><td>104,000</td><td>1,820,000</td><td>2.50 MWp</td><td>88%</td><td>Tier 1 (Advanced)</td></tr>
+            <tr><td>Tyger Valley (Cape Town)</td><td>91,000</td><td>1,480,000</td><td>2.20 MWp</td><td>82%</td><td>Tier 2 (Mature)</td></tr>
+            <tr><td>Pavilion (Durban)</td><td>123,000</td><td>2,100,000</td><td>3.10 MWp</td><td>79%</td><td>Tier 2 (Mature)</td></tr>
+            <tr><td>Westgate (Roodepoort)</td><td>109,000</td><td>1,350,000</td><td>1.80 MWp</td><td>71%</td><td>Tier 2 (Mature)</td></tr>
+            <tr><td>Southgate (Johannesburg)</td><td>88,000</td><td>1,210,000</td><td>1.09 MWp</td><td>64%</td><td>Tier 3 (Upgrade Priority)</td></tr>
+            <tr><td>Mimosa Mall (Bloemfontein)</td><td>65,000</td><td>980,000</td><td>—</td><td>58%</td><td>Tier 3 (Upgrade Priority)</td></tr>
+            <tr><td>Tigerspoort (Gauteng)</td><td>81,000</td><td>1,120,000</td><td>—</td><td>61%</td><td>Tier 3 (Upgrade Priority)</td></tr>
+            <tr style="font-weight: 700; background: #f0f7ff;"><td>PORTFOLIO TOTAL</td><td>838,000 m²</td><td>12,510,000 kWh</td><td>15.49 MWp</td><td>74.6% Avg</td><td>R8.4M Capex Roadmap</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COMPLIANCE -->
+    <div class="section" id="compliance">
+      <div class="section-header">
+        <i class="fas fa-shield-alt"></i>
+        <h2>12. Verification &amp; Compliance</h2>
+      </div>
+      <div class="grid-2">
+        <div class="stat-card"><div class="label">SANS 1544</div><div class="sub">Continuous EPC rating (A–G) against SA building class benchmarks.</div></div>
+        <div class="stat-card"><div class="label">SANS 50010 / Section 12L</div><div class="sub">M&amp;V protocol; auditable data packs at 95c/kWh.</div></div>
+        <div class="stat-card"><div class="label">POPIA</div><div class="sub">Tenant consumption hashed SHA-256; RBAC.</div></div>
+        <div class="stat-card"><div class="label">Carbon Tax Act</div><div class="sub">Scope 1 &amp; 2 liabilities; CSIR grid factor 0.95 kg/kWh.</div></div>
+        <div class="stat-card"><div class="label">Green Star SA</div><div class="sub">Energy &amp; Atmosphere + IEQ credit evidence packs.</div></div>
+        <div class="stat-card"><div class="label">IPMVP Option C</div><div class="sub">R² = 0.942; CV(RMSE) = 4.8%.</div></div>
+      </div>
+    </div>
+
+    <!-- SDLC & APPENDICES -->
+    <div class="section" id="sdlc">
+      <div class="section-header">
+        <i class="fas fa-code-branch"></i>
+        <h2>13. SDLC Phases &amp; Test Strategy</h2>
+      </div>
+      <div class="grid-3">
+        <div class="stat-card"><div class="label">Requirements &amp; Design</div><div class="sub">95c/kWh compliance &amp; zero-lag water as hard constraints.</div></div>
+        <div class="stat-card"><div class="label">Development</div><div class="sub">Modular React 18 + Express; TypeScript strict.</div></div>
+        <div class="stat-card"><div class="label">Testing</div><div class="sub">tsc --noEmit zero warnings; /api/* HTTP 200 verification.</div></div>
+        <div class="stat-card"><div class="label">Deployment</div><div class="sub">Google Cloud Run, zero-downtime containers.</div></div>
+        <div class="stat-card"><div class="label">Monitoring</div><div class="sub">Real-time WebSockets, alerting pipeline.</div></div>
+        <div class="stat-card"><div class="label">Maintenance</div><div class="sub">10-year archival, SANS 1544 &amp; SARS compliance.</div></div>
+      </div>
+    </div>
+
+    <!-- APPENDICES -->
+    <div class="section" id="appendices">
+      <div class="section-header">
+        <i class="fas fa-book"></i>
+        <h2>14. Appendices</h2>
+      </div>
+      <h3>Appendix A: Technical Glossary</h3>
+      <div class="grid-2" style="font-size: 14px;">
+        <div><strong>BESS:</strong> Battery Energy Storage System</div>
+        <div><strong>CDD / HDD:</strong> Cooling / Heating Degree Days (base 18.5°C)</div>
+        <div><strong>IPMVP:</strong> International Performance Measurement &amp; Verification Protocol</div>
+        <div><strong>NMD:</strong> Notified Maximum Demand (kVA)</div>
+        <div><strong>POPIA:</strong> Protection of Personal Information Act</div>
+        <div><strong>SANS 1544:</strong> Energy Performance of Buildings (EPC)</div>
+        <div><strong>SANS 50010:</strong> M&amp;V for tax incentives</div>
+        <div><strong>Section 12L:</strong> 95c/kWh tax deduction</div>
+        <div><strong>TOU:</strong> Time of Use (Eskom Megaflex)</div>
+      </div>
+
+      <h3>Appendix B: Query Traceability Matrix</h3>
+      <div class="table-responsive">
+        <table>
+          <thead><tr><th>Query</th><th>Resolved In</th></tr></thead>
+          <tbody>
+            <tr><td>Q1 Diesel Fuel Reconciliation</td><td>FuelReconciliationTab.tsx &amp; /api/fuel/reconciliation/:id</td></tr>
+            <tr><td>Q2 Water Mass Balance &amp; Leaks</td><td>WaterMassBalanceTab.tsx &amp; /api/water/balance/:id</td></tr>
+            <tr><td>Q3 Sub-Meter Watchdog</td><td>MeterWatchdog.tsx &amp; /api/meters/watchdog</td></tr>
+            <tr><td>Q4 Solar &amp; BESS Optimization</td><td>SolarBessTab.tsx &amp; /api/solar/bess/:id</td></tr>
+            <tr><td>Q5 IAQ Air Quality Standards</td><td>IaqAndBmsTab.tsx &amp; /api/iaq/bms/:id</td></tr>
+            <tr><td>Q6 Bertha House Case Study</td><td>BerthaHouseCaseStudyTab.tsx &amp; /api/case-studies/bertha-house</td></tr>
+            <tr><td>Q7 BMS Manual Setpoint Creep</td><td>IaqAndBmsTab.tsx (Manual Override Log)</td></tr>
+            <tr><td>Q8 Automated Board ESG Report</td><td>MonthlyReportingTab.tsx &amp; /api/reports/monthly</td></tr>
+            <tr><td>Q9 POPIA &amp; Staff Training</td><td>DataGovernanceTab.tsx &amp; TrainingSopTab.tsx</td></tr>
+            <tr><td>Q10 Fieldbus Gateway Topology</td><td>GatewayArchitectureTab.tsx &amp; /api/gateways/topology</td></tr>
+            <tr><td>Q11 Metering Readiness Matrix</td><td>ReadinessMatrixTab.tsx &amp; /api/readiness/matrix</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div><i class="fas fa-lock" style="margin-right: 6px;"></i> Enterprise Proprietary · Pareto Limited Board &amp; Technical Steering Committee</div>
+      <div>DOC-PARETO-ESG-SDLC-2026.09 · v3.2</div>
+    </div>
+  </div>
+
+  <!-- Simple JS for collapsible / interactive elements -->
+  <script>
+    (function() {
+      // Mermaid initialization (optional; we use static blocks for reliability, but you can uncomment)
+      // mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+
+      // Add hover interactions on stat cards
+      document.querySelectorAll('.stat-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          // subtle effect already in CSS
+        });
+      });
+
+      // Optional: Collapsible sections (add class to headers if needed)
+      // For now, all content is visible for presentation convenience.
+
+      console.log('Pareto ESG SDLC Document — ready for presentation.');
+    })();
+  </script>
+</body>
+</html>
